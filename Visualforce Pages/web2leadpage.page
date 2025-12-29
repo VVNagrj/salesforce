@@ -1,0 +1,134 @@
+<apex:page showHeader="false" sidebar="false">
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Customer Support – Web to Lead</title>
+
+        <style>
+            body {
+                font-family: "Segoe UI", Arial, sans-serif;
+                background: linear-gradient(135deg, #0176d3, #5fa8ff);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .lead-form {
+                background: #ffffff;
+                padding: 30px;
+                width: 420px;
+                border-radius: 10px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            }
+
+            .lead-form h2 {
+                text-align: center;
+                margin-bottom: 25px;
+                color: #16325c;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 6px;
+                font-weight: 600;
+                color: #333;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                font-size: 14px;
+            }
+
+            .form-group input:focus {
+                border-color: #0176d3;
+                outline: none;
+            }
+
+            .submit-btn {
+                width: 100%;
+                padding: 12px;
+                background-color: #0176d3;
+                color: #ffffff;
+                border: none;
+                border-radius: 6px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .submit-btn:hover {
+                background-color: #014486;
+            }
+
+            .note {
+                font-size: 12px;
+                text-align: center;
+                margin-top: 12px;
+                color: #666;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <form class="lead-form"
+              action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
+              method="POST">
+
+            <h2>Customer Support</h2>
+
+            <!-- Salesforce Org -->
+            <input type="hidden" name="oid" value="00Df600000G1ROL"/>
+            <input type="hidden" name="retURL" 
+            value="https://saas-flow-3718.my.salesforce-sites.com/ThankYou"/>
+
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="first_name" maxlength="40" required="required"/>
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="last_name" maxlength="80" required="required"/>
+            </div>
+
+            <div class="form-group">
+                <label>Aadhar Number</label>
+                <input type="text" name="00Nf600000BGTz0" maxlength="20"/>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" maxlength="80" required="required"/>
+            </div>
+
+            <div class="form-group">
+                <label>Company</label>
+                <input type="text" name="company" maxlength="40"/>
+            </div>
+
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" name="city" maxlength="40"/>
+            </div>
+
+            <input type="submit" value="Submit" class="submit-btn"/>
+
+            <div class="note">
+                We will contact you within 24 hours.
+            </div>
+
+        </form>
+
+    </body>
+    </html>
+</apex:page>

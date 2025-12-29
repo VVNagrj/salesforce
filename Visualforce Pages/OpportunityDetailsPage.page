@@ -1,0 +1,205 @@
+<apex:page controller="OpportunityDetailsController"
+           showHeader="false"
+           sidebar="false"
+           docType="html-5.0">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0;
+            padding: 40px;
+            animation: fadeInBg 1s ease-in;
+        }
+
+        @keyframes fadeInBg {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .card {
+            background: #ffffff;
+            max-width: 1100px;
+            margin: auto;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            overflow: hidden;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+            color: white;
+            padding: 28px 30px;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .opp-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .opp-details div {
+            background: #f8f9fc;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .opp-details div:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .opp-details span {
+            display: block;
+            font-size: 12px;
+            color: #858796;
+            margin-bottom: 6px;
+        }
+
+        h3 {
+            margin-top: 10px;
+            color: #333;
+            animation: fadeIn 1.2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            animation: fadeIn 1.4s ease-in;
+        }
+
+        th {
+            background: #4e73df;
+            color: white;
+            padding: 14px;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        tbody tr {
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f8f9fc;
+        }
+
+        tbody tr:hover {
+            background: #eaf1ff;
+            transform: scale(1.01);
+        }
+
+        .price {
+            font-weight: 600;
+            color: #1cc88a;
+        }
+
+        .total {
+            text-align: right;
+            margin-top: 30px;
+            font-size: 22px;
+            font-weight: 600;
+            color: #4e73df;
+            animation: slideUp 1s ease;
+        }
+    </style>
+
+    <div class="card">
+
+        <!-- Header -->
+        <div class="header">
+            <h2>Opportunity Details</h2>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+
+            <!-- Opportunity Info -->
+            <div class="opp-details">
+                <div>
+                    <span>Name</span>
+                    {!opp.Name}
+                </div>
+                <div>
+                    <span>Stage</span>
+                    {!opp.StageName}
+                </div>
+                <div>
+                    <span>Close Date</span>
+                    {!opp.CloseDate}
+                </div>
+                <div>
+                    <span>Amount</span>
+                    ₹ {!opp.Amount}
+                </div>
+            </div>
+
+            <!-- Products -->
+            <h3>Products</h3>
+
+            <apex:pageBlock rendered="{!NOT(ISNULL(oppLineItems))}">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!oppLineItems}" var="oli">
+                            <tr>
+                                <td>{!oli.PricebookEntry.Product2.Name}</td>
+                                <td>{!oli.Quantity}</td>
+                                <td class="price">₹ {!oli.UnitPrice}</td>
+                                <td class="price">₹ {!oli.TotalPrice}</td>
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+            </apex:pageBlock>
+
+            <div class="total">
+                Grand Total: ₹ {!opp.Amount}
+            </div>
+
+        </div>
+    </div>
+</apex:page>
